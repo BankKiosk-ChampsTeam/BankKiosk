@@ -3,8 +3,12 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
-    types: [opened, synchronize, reopened]
+     types:
+      - opened
+      - synchronize
+      - reopened
 jobs:
   sonarcloud:
     name: SonarCloud
@@ -15,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: SonarCloud Scan
-      - if: matrix.os == 'ubuntu-latest' && matrix.java == '12' # To ensure a single execution per CI run
+       # To ensure a single execution per CI run
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
